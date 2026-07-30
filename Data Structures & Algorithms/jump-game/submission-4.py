@@ -1,0 +1,12 @@
+class Solution:
+    def canJump(self, nums: List[int]) -> bool:
+        #greedy algorithm, go backwards
+
+        init_ind = 0 #our start
+        for i in range(len(nums)-1): #go backwards through our loop
+              if nums[init_ind] + i > init_ind:
+                 init_ind = nums[init_ind] + i
+        return init_ind == len(nums)-1 #we reached our goal!
+
+
+            
