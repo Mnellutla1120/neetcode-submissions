@@ -1,14 +1,20 @@
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
-        self.res = []
-        self.backtrack(nums, 0)
-        return self.res
+        res = []
+        seen = set()
 
-    def backtrack(self, nums: List[int], idx: int):
-        if idx == len(nums):
-            self.res.append(nums[:])
-            return
-        for i in range(idx, len(nums)):
-            nums[idx], nums[i] = nums[i], nums[idx]
-            self.backtrack(nums, idx + 1)
-            nums[idx], nums[i] = nums[i], nums[idx]
+        def dfs(curr, seen):
+            if len(curr) == len(nums):
+                 res.append(curr.copy())
+                 return 
+            for num in nums:
+                if num not in seen:
+                     curr.append(num)
+                     seen.add(num)
+                     dfs(curr,seen)
+                     curr.pop()
+                     seen.remove(num)
+
+        
+        dfs([],seen)
+        return res
